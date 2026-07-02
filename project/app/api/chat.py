@@ -12,7 +12,15 @@ from app.models.request import ChatRequest
 
 router = APIRouter(tags=["chat"])
 logger = get_logger(__name__)
-agent = ConversationAgent()
+
+_agent: ConversationAgent | None = None
+
+
+def get_agent() -> ConversationAgent:
+    global _agent
+    if _agent is None:
+        _agent = ConversationAgent()
+    return _agent
 
 
 @router.post("/chat")
@@ -22,6 +30,7 @@ def chat(payload: ChatRequest) -> JSONResponse:
         raise HTTPException(status_code=400, detail="messages must not be empty")
 
     try:
+        agent = get_agent()
         response = agent.respond(payload.messages)
         elapsed_ms = round((time.perf_counter() - start) * 1000, 2)
         logger.info("chat_response elapsed_ms=%s messages=%s", elapsed_ms, len(payload.messages))
