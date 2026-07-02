@@ -1,0 +1,36 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Vectorstore and data cache (optional, depending on whether you want to commit built indexes)
+# Recommended to ignore so they get rebuilt on deployment
+vectorstore/*.faiss
+vectorstore/*.json
+data/raw/
+data/processed/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
